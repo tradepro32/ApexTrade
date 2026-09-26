@@ -687,7 +687,7 @@
         updateBalance();
 let botRunning = false;
 let botTradeCount = 0;
-const maxBotTrades = 20;
+
 function toggleBot() {
 
     const button = document.getElementById("botButton");
@@ -869,8 +869,9 @@ botTradeCount = 0;
     let botInterval;
 
 function startBotTrading() {
+ function startBotTrading() {
     if (botInterval) return;
-let botTradeCount = 0;
+
     botInterval = setInterval(function() {
 
         if (!botRunning) return;
@@ -878,50 +879,63 @@ let botTradeCount = 0;
         const randomAsset = document.getElementById("botAsset").value;
         const marketSignal = Math.random();
 
-let randomType;
+        let randomType;
 
-if (marketSignal > 0.55) {
-    randomType = "buy";
-} else {
-    randomType = "sell";
-}
-    
+        if (marketSignal > 0.55) {
+            randomType = "buy";
+        } else {
+            randomType = "sell";
+        }
+
         const amount = Number(document.getElementById("botAmount").value);
+        const maxTrades = Number(document.getElementById("botMaxTrades").value);
 
-   
+        if (botTradeCount >= maxTrades) {
+            clearInterval(botInterval);
+            botInterval = null;
+            botRunning = false;
+
+            document.getElementById("botStatus").textContent = "● BOT OFF";
+            document.getElementById("botStatus").className = "bot-status";
+            document.getElementById("botButton").textContent = "Start Bot";
+
+            return;
+        }
+
         if (amount <= balance) {
-          botTradeCount++;
 
-}
-    balance -= amount;
+            balance -= amount;
 
-    positions.push({
-        asset: randomAsset,
-        type: randomType,
-        amount: amount,
-        time: new Date().toLocaleTimeString()
-    });
+            botTradeCount++;
 
-    tradeHistory.push({
-        asset: randomAsset,
-        type: randomType,
-        amount: amount,
-        time: new Date().toLocaleTimeString()
-    });
+            positions.push({
+                asset: randomAsset,
+                type: randomType,
+                amount: amount,
+                time: new Date().toLocaleTimeString()
+            });
 
-    updateBalance();
-    renderPositions();
-    renderTradeHistory();
-}
-  if (botTradeCount >= Number(document.getElementById("botMaxTrades").value)) {
-    clearInterval(botInterval);
-    botInterval = null;
-    botRunning = false;
+            tradeHistory.push({
+                asset: randomAsset,
+                type: randomType,
+                amount: amount,
+                time: new Date().toLocaleTimeString()
+            });
 
-    document.getElementById("botStatus").textContent = "● BOT OFF";
-    document.getElementById("botStatus").className = "bot-status";
-    document.getElementById("botButton").textContent = "Start Bot";
-}  
+            updateBalance();
+            renderPositions();
+            renderTradeHistory();
+
+            if (botTradeCount >= maxTrades) {
+                clearInterval(botInterval);
+                botInterval = null;
+                botRunning = false;
+
+                document.getElementById("botStatus").textContent = "● BOT OFF";
+                document.getElementById("botStatus").className = "bot-status";
+                document.getElementById("botButton").textContent = "Start Bot";
+            }
+        }
 
     }, 5000);
 }
