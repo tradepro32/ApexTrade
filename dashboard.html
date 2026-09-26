@@ -877,6 +877,7 @@ if (botTradeCount >= maxBotTrades) {
     return;
 }
             balance -= amount;
+            botTradeCount++;
 
             positions.push({
                 asset: randomAsset,
