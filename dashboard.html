@@ -853,8 +853,16 @@ function startBotTrading() {
 
         const assets = ["BTC/USD", "ETH/USD", "EUR/USD", "GOLD"];
         const randomAsset = assets[Math.floor(Math.random() * assets.length)];
-        const types = ["buy", "sell"];
-        const randomType = types[Math.floor(Math.random() * types.length)];
+        const marketSignal = Math.random();
+
+let randomType;
+
+if (marketSignal > 0.55) {
+    randomType = "buy";
+} else {
+    randomType = "sell";
+}
+    
         const amount = 100;
 
         if (amount <= balance) {
