@@ -842,6 +842,48 @@ function toggleBot() {
         button.textContent = "Start Bot";
     }
 }
+    let botInterval;
+
+function startBotTrading() {
+    if (botInterval) return;
+
+    botInterval = setInterval(function() {
+
+        if (!botRunning) return;
+
+        const assets = ["BTC/USD", "ETH/USD", "EUR/USD", "GOLD"];
+        const randomAsset = assets[Math.floor(Math.random() * assets.length)];
+        const types = ["buy", "sell"];
+        const randomType = types[Math.floor(Math.random() * types.length)];
+        const amount = 100;
+
+        if (amount <= balance) {
+
+            balance -= amount;
+
+            positions.push({
+                asset: randomAsset,
+                type: randomType,
+                amount: amount,
+                time: new Date().toLocaleTimeString()
+            });
+
+            tradeHistory.push({
+                asset: randomAsset,
+                type: randomType,
+                amount: amount,
+                time: new Date().toLocaleTimeString()
+            });
+
+            updateBalance();
+            renderPositions();
+            renderTradeHistory();
+        }
+
+    }, 5000);
+}
+
+startBotTrading();
 </script>
 
 </body>
