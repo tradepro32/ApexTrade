@@ -824,7 +824,24 @@ function renderTradeHistory() {
 
 
     updateBalance();
+let botRunning = false;
 
+function toggleBot() {
+    const button = document.getElementById("botButton");
+    const status = document.getElementById("botStatus");
+
+    botRunning = !botRunning;
+
+    if (botRunning) {
+        status.textContent = "● BOT ON";
+        status.className = "bot-status green";
+        button.textContent = "Stop Bot";
+    } else {
+        status.textContent = "● BOT OFF";
+        status.className = "bot-status";
+        button.textContent = "Start Bot";
+    }
+}
 </script>
 
 </body>
