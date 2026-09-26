@@ -869,7 +869,6 @@ botTradeCount = 0;
     let botInterval;
 
 function startBotTrading() {
- function startBotTrading() {
     if (botInterval) return;
 
     botInterval = setInterval(function() {
@@ -888,25 +887,10 @@ function startBotTrading() {
         }
 
         const amount = Number(document.getElementById("botAmount").value);
-        const maxTrades = Number(document.getElementById("botMaxTrades").value);
-
-        if (botTradeCount >= maxTrades) {
-            clearInterval(botInterval);
-            botInterval = null;
-            botRunning = false;
-
-            document.getElementById("botStatus").textContent = "● BOT OFF";
-            document.getElementById("botStatus").className = "bot-status";
-            document.getElementById("botButton").textContent = "Start Bot";
-
-            return;
-        }
 
         if (amount <= balance) {
 
             balance -= amount;
-
-            botTradeCount++;
 
             positions.push({
                 asset: randomAsset,
@@ -925,16 +909,6 @@ function startBotTrading() {
             updateBalance();
             renderPositions();
             renderTradeHistory();
-
-            if (botTradeCount >= maxTrades) {
-                clearInterval(botInterval);
-                botInterval = null;
-                botRunning = false;
-
-                document.getElementById("botStatus").textContent = "● BOT OFF";
-                document.getElementById("botStatus").className = "bot-status";
-                document.getElementById("botButton").textContent = "Start Bot";
-            }
         }
 
     }, 5000);
