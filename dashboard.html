@@ -535,13 +535,27 @@
     </div>
 
 </div>
+<div class="section">
 
+    <h2>Trade History</h2>
+
+    <div id="tradeHistory">
+
+        <div class="empty">
+            No trades yet.
+        </div>
+
+    </div>
+
+</div>
 
 <script>
 
     let balance = 10000;
 
     let positions = [];
+
+    let tradeHistory = [];
 
 
     function updateBalance() {
@@ -597,6 +611,12 @@
 
 
         balance -= amount;
+        tradeHistory.push({
+    asset: asset,
+    type: type,
+    amount: amount,
+    time: new Date().toLocaleTimeString()
+});
 
 
         positions.push({
@@ -642,6 +662,7 @@
 
     function renderPositions() {
 
+        renderTradeHistory();
         const container =
             document.getElementById("positions");
 
@@ -703,7 +724,38 @@
 
     }
 
+function renderTradeHistory() {
 
+    const container = document.getElementById("tradeHistory");
+
+    if (tradeHistory.length === 0) {
+        container.innerHTML =
+            '<div class="empty">No trades yet.</div>';
+        return;
+    }
+
+    container.innerHTML = "";
+
+    tradeHistory.forEach(function(trade) {
+
+        const row = document.createElement("div");
+
+        row.className = "market";
+
+        row.innerHTML = `
+            <div>
+                <div class="symbol">${trade.asset}</div>
+                <small>${trade.type.toUpperCase()}</small>
+            </div>
+
+            <div>$${trade.amount.toFixed(2)}</div>
+
+            <div>${trade.time}</div>
+        `;
+
+        container.appendChild(row);
+    });
+}
     function showMessage(message, type) {
 
         const element =
