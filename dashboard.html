@@ -266,7 +266,37 @@
             .container {
                 width: 94%;
             }
+.bot-box {
+    background: #0d1b2a;
+    border: 1px solid #21364d;
+    border-radius: 12px;
+    padding: 25px;
+    margin-top: 25px;
+}
 
+.bot-box h2 {
+    margin: 6px 0;
+}
+
+.bot-box p {
+    color: #94a3b8;
+    margin-bottom: 18px;
+}
+
+.bot-status {
+    color: #94a3b8;
+    margin-bottom: 15px;
+}
+
+.bot-box button {
+    background: #16c784;
+    color: #04100b;
+    border: none;
+    padding: 12px 22px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: bold;
+}
             .market {
                 flex-wrap: wrap;
                 gap: 12px;
@@ -633,7 +663,29 @@
 
 
         updateBalance();
+let botRunning = false;
 
+function toggleBot() {
+
+    const button = document.getElementById("botButton");
+    const status = document.getElementById("botStatus");
+
+    botRunning = !botRunning;
+
+    if (botRunning) {
+
+        status.textContent = "● BOT ON";
+        status.className = "bot-status green";
+        button.textContent = "Stop Bot";
+
+    } else {
+
+        status.textContent = "● BOT OFF";
+        status.className = "bot-status";
+        button.textContent = "Start Bot";
+
+    }
+}
         renderPositions();
 
 
@@ -776,4 +828,60 @@ function renderTradeHistory() {
 </script>
 
 </body>
+<section class="bot-box">
+
+    <div>
+        <small>APEXTRADE BOT</small>
+        <h2>Demo Trading Bot</h2>
+        <p>
+            Automated trading simulation for your demo account.
+        </p>
+    </div>
+
+    <div class="bot-status" id="botStatus">
+        ● BOT OFF
+    </div>
+
+    <button onclick="toggleBot()" id="botButton">
+        Start Bot
+    </button>
+
+<section class="bot-box">
+
+    <div>
+        <small>APEXTRADE BOT</small>
+        <h2>Demo Trading Bot</h2>
+        <p>
+            Automated trading simulation for your demo account.
+        </p>
+    </div>
+
+    <div class="bot-status" id="botStatus">
+        ● BOT OFF
+    </div>
+
+    <button onclick="toggleBot()" id="botButton">
+        Start Bot
+    </button>
+<section class="bot-box">
+
+    <div>
+        <small>APEXTRADE BOT</small>
+        <h2>Demo Trading Bot</h2>
+        <p>
+            Automated trading simulation for your demo account.
+        </p>
+    </div>
+
+    <div class="bot-status" id="botStatus">
+        ● BOT OFF
+    </div>
+
+    <button onclick="toggleBot()" id="botButton">
+        Start Bot
+    </button>
+
+</section>
+
+</html>
 </html>
