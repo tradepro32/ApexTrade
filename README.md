@@ -1,2 +1,2 @@
-# ApexTrade
-ApexTrade— Multi-Asset Trading Platform
+# Tradvanta
+Tradvanta— Multi-Asset Trading Platform
