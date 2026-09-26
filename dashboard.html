@@ -834,6 +834,7 @@ function toggleBot() {
     botRunning = !botRunning;
 
     if (botRunning) {
+botTradeCount = 0;
         status.textContent = "● BOT ON";
         status.className = "bot-status green";
         button.textContent = "Stop Bot";
