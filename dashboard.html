@@ -869,28 +869,27 @@ if (marketSignal > 0.55) {
 
         if (amount <= balance) {
 
+    balance -= amount;
+
+    positions.push({
+        asset: randomAsset,
+        type: randomType,
+        amount: amount,
+        time: new Date().toLocaleTimeString()
+    });
+
+    tradeHistory.push({
+        asset: randomAsset,
+        type: randomType,
+        amount: amount,
+        time: new Date().toLocaleTimeString()
+    });
+
+    updateBalance();
+    renderPositions();
+    renderTradeHistory();
 }
-            balance -= amount;
-            
-
-            positions.push({
-                asset: randomAsset,
-                type: randomType,
-                amount: amount,
-                time: new Date().toLocaleTimeString()
-            });
-
-            tradeHistory.push({
-                asset: randomAsset,
-                type: randomType,
-                amount: amount,
-                time: new Date().toLocaleTimeString()
-            });
-
-            updateBalance();
-            renderPositions();
-            renderTradeHistory();
-        }
+    
 
     }, 5000);
 }
